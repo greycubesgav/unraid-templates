@@ -15,7 +15,7 @@ More details about Cryptomator can be found at https://cryptomator.org&#xD;</Ove
   <Category>Productivity: Tools: Security: Backup:</Category>
   <WebUI>http://[IP]:[PORT:18081]/vault/</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/greycubesgav/cryptomator-webdav-unraid/main/cryptomator-webdav-unraid.xml</TemplateURL>
-  <Icon>https://avatars.githubusercontent.com/u/11850518?s=200&amp;v=4</Icon>
+  <Icon>https://github.com/greycubesgav/cryptomator-webdav-unraid/raw/main/images/cryptomator_logo.png</Icon>
   <ExtraParams/>
   <PostArgs/>
   <CPUset/>
@@ -26,4 +26,6 @@ More details about Cryptomator can be found at https://cryptomator.org&#xD;</Ove
   <Config Name="Cryptomator webDAV Port" Target="18081" Default="18081" Mode="tcp" Description="Port the Cryptomator WebDAV share will be available at." Type="Port" Display="always" Required="false" Mask="false"></Config>
   <Config Name="Cryptomator Vault" Target="/vault" Default="/mnt/cryptomator_vault" Mode="rw" Description="The location of the local Cryptomator vault files." Type="Path" Display="always" Required="false" Mask="false"></Config>
   <Config Name="Cryptomator Vault Password" Target="CRYPTOMATOR_VAULT_PASS" Default="strongpass" Mode="" Description="The Cryptomator password for the vault." Type="Variable" Display="always" Required="false" Mask="true"></Config>
+  <Config Name="UID" Target="UID" Default="99" Mode="" Description="Container Variable: UID" Type="Variable" Display="advanced-hide" Required="true" Mask="false"></Config>
+  <Config Name="GID" Target="GID" Default="100" Mode="" Description="Container Variable: GID" Type="Variable" Display="advanced-hide" Required="true" Mask="false"></Config>
 </Container>
