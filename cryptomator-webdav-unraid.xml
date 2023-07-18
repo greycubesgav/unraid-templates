@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Containers>
+  <TemplateURL>https://raw.githubusercontent.com/greycubesgav/cryptomator-webdav-unraid/main/cryptomator-webdav-unraid.xml</TemplateURL>
+  <Beta>True</Beta>
+  <Category>Productivity: Tools: Security: Backup:</Category>
+  <Name>Cryptomator WebDAV</Name>
+  <Description>
+    [b]Description[/b][br]
+    Cryptomator allows for local file level encryption with transparent access through a local GUI application. See https://cryptomator.org [br]
+    Cryptomator WebDAV allows you to server a local stored Cryptomator vault over WebDAV, allowing access through third party WebDav tools such as rclone, Mountain Duck, CyberDuck etc.
+    [b]Configuration[/b][br]
+    [b]/config[/b] This is where the application will store its configuration files, database and logs etc.[br]
+    [b]/vault[/b] This is the local cryptomator vault files.[br][br]
+    [b]Documentation[/b][br]
+    https://github.com/greycubesgav/cryptomator-webdav-unraid/[br][br]
+  </Description>
+  <Overview>
+    Cryptomator WebDAV allows you to server a local stored Cryptomator vault over WebDAV, allowing access through third party WebDav tools such as rclone, Mountain Duck, CyberDuck etc. See https://cryptomator.org
+  </Overview>
+  <Support>https://github.com/greycubesgav/cryptomator-webdav-unraid/</Support>
+  <ReadMe>https://github.com/greycubesgav/cryptomator-webdav-unraid/Readme</ReadMe>
+  <Registry>https://registry.hub.docker.com/r/greycubesgav/cryptomator-webdav</Registry>
+  <GitHub>https://github.com/greycubesgav/cryptomator-webdav-unraid</GitHub>
+  <Repository>greycubesgav/cryptomator-webdav</Repository>
+  <Project>https://github.com/greycubesgav/cryptomator-webdav</Project>
+  <BindTime>true</BindTime>
+  <Privileged>false</Privileged>
+  <Networking>
+    <Mode>bridge</Mode>
+    <Publish>
+      <Port>
+        <HostPort>18081</HostPort>
+        <ContainerPort>18081</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+    </Publish>
+  </Networking>
+  <Environment>
+    <Variable>
+      <Name>CRYPTOMATOR_VAULT_PASS</Name>
+      <Value>strongpass</Value>
+    </Variable>
+  </Environment>
+  <Data>
+    <Volume>
+      <HostDir>/mnt/user/cryptomator_vault</HostDir>
+      <ContainerDir>/vault</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+  </Data>
+  <WebUI>http://[IP]:[PORT:18081]/</WebUI>
+  <Icon>https://avatars.githubusercontent.com/u/11850518?s=200&amp;v=4</Icon>
+  <ExtraParams></ExtraParams>
+  <Config Name="Cryptomator WebDAV Port" Target="18081" Default="18081" Mode="tcp" Description="Container WedDAV: 18081" Type="Port" Display="always" Required="true" Mask="false"/>
+  <Config Name="Cryptomator Vault Location" Target="CRYPTOMATOR_VAULT_SRC_PATH" Default="/mnt/user/cryptomatorvault" Mode="" Description="The location of the local Cryptomator vault files" Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="Cryptomator Vault Pass" Target="CRYPTOMATOR_VAULT_PASS" Default="strongpass" Mode="" Description="The password for your local cryptomator vault" Type="Variable" Display="always" Required="true" Mask="true"/>
+</Containers>
