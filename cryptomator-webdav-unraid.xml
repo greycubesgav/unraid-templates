@@ -26,10 +26,11 @@ More details about Cryptomator can be found at https://cryptomator.org</Overview
   <DonateText/>
   <DonateLink/>
   <Requires/>
-  <Config Name="Cryptomator webDAV Port" Target="18081" Default="18081" Mode="tcp" Description="Port the Cryptomator WebDAV share will be available at." Type="Port" Display="always" Required="true" Mask="false"></Config>
+  <Config Name="Cryptomator webDAV Port" Target="8443" Default="18081" Mode="tcp" Description="Port the Cryptomator WebDAV share will be available at." Type="Port" Display="always" Required="true" Mask="false"></Config>
   <Config Name="Cryptomator Vault Directory" Target="/vault" Default="/mnt/cryptomator_vault" Mode="rw" Description="The location of the local Cryptomator vault files." Type="Path" Display="always" Required="true" Mask="false"></Config>
-  <Config Name="Cryptomator Vault Password" Target="CRYPTOMATOR_VAULT_PASS" Default="strongpass" Mode="" Description="The Cryptomator password for the vault." Type="Variable" Display="always" Required="false" Mask="true"></Config>
-  <Config Name="Or Cryptomator Vault Password File" Target="/vault.pass" Default="/mnt/user/appdata/cryptomator-webdav/vault.pass" Mode="r" Description="The location of the local Cryptomator vault password file." Type="Path" Display="always" Required="false" Mask="false"></Config>
+  <Config Name="Cryptomator Vault Password" Target="CRYPTOMATOR_VAULT_PASS" Default="strongpass" Mode="" Description="The Cryptomator password for the vault. Note: is visible in docker env. Use password file for more secure option." Type="Variable" Display="always" Required="false" Mask="true"></Config>
+  <Config Name="Or Cryptomator Vault Password File" Target="/vault.pass" Default="/mnt/user/appdata/cryptomator-webdav/vault.pass" Mode="r" Description="Optionally set the location of a local file containing the Cryptomator vault password." Type="Path" Display="always" Required="false" Mask="false"></Config>
+  <Config Name="Optional: Signed Certificate" Target="/usr/local/etc/stunnel/stunnel.pem" Default="" Mode="ro" Description="Optional: A fully signed cert with key embeded to be used by stunnel." Type="Path" Display="always" Required="false" Mask="false"></Config>
   <Config Name="Cryptomator UID" Target="CRYPTOMATOR_UID" Default="99" Mode="" Description="User ID to run cryptomator-cli as" Type="Variable" Display="advanced-hide" Required="true" Mask="false"></Config>
   <Config Name="Cryptomator GID" Target="CRYPTOMATOR_GID" Default="100" Mode="" Description="Group ID to run cryptomator-cli as" Type="Variable" Display="advanced-hide" Required="true" Mask="false"></Config>
 </Container>
