@@ -2,12 +2,12 @@
 <Container version="2">
   <Name>cryptomator-webdav</Name>
   <Repository>greycubesgav/cryptomator-webdav</Repository>
-  <Registry>https://hub.docker.com/r/greycubesgav/cryptomator-webdav/</Registry>
+  <Registry>https://hub.docker.com/r/greycubesgav/cryptomator-webdav</Registry>
   <Network>bridge</Network>
   <MyIP/>
   <Shell>bash</Shell>
   <Privileged>false</Privileged>
-  <Support>https://github.com/greycubesgav/cryptomator-webdav-unraid/</Support>
+  <Support>https://github.com/greycubesgav/unraid-templates/</Support>
   <Project/>
   <Overview>Cryptomator WebDAV allows you to serve a locally stored Cryptomator vault over a secure WebDAV (https) connection, allowing access to decrypted files through third party WebDav tools such as rclone, Mountain Duck, CyberDuck etc.
 
@@ -40,8 +40,8 @@ See the Cryptomator WebDAV github project for more details at https://github.com
 More details about Cryptomator can be found at https://cryptomator.org</Overview>
   <Category>Productivity: Tools: Security: Backup:</Category>
   <WebUI>https://[IP]:[PORT:18081]/vault/</WebUI>
-  <TemplateURL>https://raw.githubusercontent.com/greycubesgav/cryptomator-webdav-unraid/main/cryptomator-webdav-unraid.xml</TemplateURL>
-  <Icon>https://github.com/greycubesgav/cryptomator-webdav-unraid/raw/main/images/cryptomator_logo.png</Icon>
+  <TemplateURL>https://raw.githubusercontent.com/greycubesgav/unraid-templates/main/cryptomator-webdav/cryptomator-webdav.xml</TemplateURL>
+  <Icon>https://github.com/greycubesgav/unraid-templates/raw/main/cryptomator-webdav/images/cryptomator_logo.png</Icon>
   <ExtraParams/>
   <PostArgs/>
   <CPUset/>
