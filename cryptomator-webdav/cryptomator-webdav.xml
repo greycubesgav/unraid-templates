@@ -11,36 +11,37 @@
   <Project/>
   <Overview>Cryptomator WebDAV allows you to serve a locally stored Cryptomator vault over a secure WebDAV (https) connection, allowing access to decrypted files through third party WebDav tools such as rclone, Mountain Duck, CyberDuck etc.
 
-Cryptomator Vault Password:
-The password for the vault can either be shared through the Cryptomator Vault Password variable, or can be stored in a local file through the Cryptomator Vault Password File setting.
-Only one in is needed.
+Setting the Cryptomator Vault Password:
+The password for the vault can either be set directly through the Cryptomator Vault Password variable, or can be stored in a local file and shared through the Cryptomator Vault Password File setting.
+Only one is needed.
 Note: Unraid only shows directories in its drop down by default, manually type the full path to the file in the variable box, e.g. '/mnt/user/appdata/cryptomator-webdav/vault.pass'
 
-&lt;b&gt;Optional Signed Certificate:&lt;/b&gt;
+Optional Signed Certificate:
 An optional signed certificate can be passed to the container, e.g. from LetsEncrypt.
 Set the "Optional: Signed Certificate" variable to the full path of your certificate file, containing both your cert and the key in one .pem file.
 Note: Unraid only shows directories in its drop down by default, manually type the full path to the file in the variable box, e.g. '/mnt/user/appdata/cryptomator-webdav/mycert.pem'
 
-[b]File Permissions:tiger[/b]
+File Permissions:
 Cryptomator-webdav runs as UID:99, GID:100 by default. This can be changed through the CRYPTOMATOR_UID and CRYPTOMATOR_GID variables.
 Ensure vault files are read and writable by the IDs you set.
 Ensure any vault password file provided is readable by these IDs.
 
 More Secure File Permissions:
-Note: most applications within Unraid containers run as UID:99, GID:100
-To ensure a slightly more secure installation, it is recommended the container application is run as a separate Unraid user id, and files are only accessible by this user.
-For example:
-Set CRYPTOMATOR_UID to your Unraid user id, e.g. 1000
+Most Unraid Community Applications containers run as UID:99, GID:100
+In theory this would mean a rouge container could have read access to your encrypted files if the vault was shared with it.
+To ensure a *slightly* more secure installation, it is recommended the container application is run as a separate Unraid user id, and vault files are only accessible by this user.
 
-Ensure all vault files are only readable and writable by this user:
-chown -R 1000: /path/to/cryptomator/vault
-chmod -R u+rwX,g-rwx,o-rwx /path/to/cryptomator/vault
+For example:
+* Set CRYPTOMATOR_UID to your Unraid user id, e.g. 1000
+* Ensure all vault files are only readable and writable by this user:
+* chown -R 1000: /path/to/cryptomator/vault
+* chmod -R u+rwX,g-rwx,o-rwx /path/to/cryptomator/vault
 
 See the Cryptomator WebDAV github project for more details at https://github.com/greycubesgav/cryptomator-webdav
 More details about Cryptomator can be found at https://cryptomator.org</Overview>
   <Changes>
 ###v1.0
-- Initial version
+- Initial app version
   </Changes>
   <Category>Productivity: Tools: Security: Backup:</Category>
   <WebUI>https://[IP]:[PORT:18081]/vault/</WebUI>
