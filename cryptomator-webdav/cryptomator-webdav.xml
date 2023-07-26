@@ -40,6 +40,9 @@ For example:
 See the Cryptomator WebDAV github project for more details at https://github.com/greycubesgav/cryptomator-webdav
 More details about Cryptomator can be found at https://cryptomator.org</Overview>
   <Changes>
+###v1.1
+- Fix applied to WebUI port
+
 ###v1.0
 - Initial app version
   </Changes>
