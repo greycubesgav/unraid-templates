@@ -44,7 +44,7 @@ More details about Cryptomator can be found at https://cryptomator.org</Overview
 - Initial app version
   </Changes>
   <Category>Productivity: Tools: Security: Backup:</Category>
-  <WebUI>https://[IP]:[PORT:18081]/vault/</WebUI>
+  <WebUI>https://[IP]:[PORT:8443]/vault/</WebUI>
   <TemplateURL>https://raw.githubusercontent.com/greycubesgav/unraid-templates/main/cryptomator-webdav/cryptomator-webdav.xml</TemplateURL>
   <Icon>https://github.com/greycubesgav/unraid-templates/raw/main/cryptomator-webdav/images/cryptomator_logo.png</Icon>
   <ExtraParams/>
