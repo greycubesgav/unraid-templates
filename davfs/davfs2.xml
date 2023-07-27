@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Containers>
+<Plugin>True</Plugin>
+<PluginURL>https://github.com/greycubesgav/unraid-templates/raw/master/davfs2/davfs2.plg</PluginURL>
+<PluginAuthor>Gavin Brown</PluginAuthor>
+<Beta>True</Beta>
+<Category>Tools:System</Category>
+<Name>davfs2 filesystem</Name>
+<Description>This plugin provides the ability to mount davfs filesystems under Unraid.
+
+It installs the davfs2 package which can then be used to mount webdav filesystems from the Unraid command line.
+
+See the man pages here for a more complete breakdown of all configuration:
+https://linux.die.net/man/8/mount.davfs
+https://linux.die.net/man/5/davfs2.conf
+</Description>
+<Requires>**This plugin is aimed at advanced users**
+This plugin installs the libraries and binaries required to mount webdav filesystems.
+The mounting needs to be performed by hand within the Unraid terminal
+
+For example:
+mount -t davfs http(s)://address:&lt;port&gt;/path /mount/point
+
+See the man pages in the description for more information on mount options.
+</Requires>
+<MinVer>6.11.0</MinVer>
+<Date>2023-07-27</Date>
+<Support>https://github.com/greycubesgav/unraid-templates</Support>
+<Icon>https://github.com/greycubesgav/unraid-templates/raw/master/davfs2/images/davfs2.png</Icon>
+<Project>http://savannah.nongnu.org/projects/davfs2</Project>
+</Containers>
