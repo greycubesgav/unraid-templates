@@ -3,7 +3,7 @@
   <!ENTITY name      "davfs2">
   <!ENTITY author    "greycubesgav">
   <!ENTITY version   "2023.07.15">
-  <!ENTITY icon      "terminal">
+  <!ENTITY icon      "hdd-o">
   <!ENTITY gitURL    "https://github.com/&author;/unraid-templates/raw/main/&name;/">
   <!ENTITY pluginURL "&gitURL;/davfs2.plg">
   <!ENTITY pluginDIR "/boot/config/plugins/&name;">
@@ -66,6 +66,18 @@ useradd -u 230 -d /var/cache/davfs2 -g davfs2 -s /bin/false davfs2
 **davfs2**
 
 davfs2 allows for the local mounting of WebDAV sites under Unraid using the Terminal
+</INLINE>
+</FILE>
+
+<!-- POST-INSTALL SCRIPT -->
+<FILE Run="/bin/bash">
+<INLINE>
+echo ""
+echo "-----------------------------------------------------------"
+echo " Plugin &name; is installed."
+echo " Version: &version;"
+echo "-----------------------------------------------------------"
+echo ""
 </INLINE>
 </FILE>
 
