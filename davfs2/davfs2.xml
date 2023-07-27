@@ -26,6 +26,6 @@ See the man pages in the description for more information on mount options.
 <MinVer>6.11.0</MinVer>
 <Date>2023-07-27</Date>
 <Support>https://github.com/greycubesgav/unraid-templates</Support>
-<Icon>https://github.com/greycubesgav/unraid-templates/raw/master/davfs2/images/davfs2.png</Icon>
+<Icon>https://raw.githubusercontent.com/greycubesgav/unraid-templates/main/davfs2/images/davfs2.png</Icon>
 <Project>http://savannah.nongnu.org/projects/davfs2</Project>
 </Containers>

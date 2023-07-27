@@ -2,9 +2,9 @@
 <!DOCTYPE PLUGIN [
   <!ENTITY name      "davfs2">
   <!ENTITY author    "greycubesgav">
-  <!ENTITY version   "2023.06.15">
+  <!ENTITY version   "2023.07.15">
   <!ENTITY icon      "terminal">
-  <!ENTITY gitURL    "https://raw.githubusercontent.com/&author;/unraid-templates/master/&name;/">
+  <!ENTITY gitURL    "https://github.com/&author;/unraid-templates/raw/main/&name;/">
   <!ENTITY pluginURL "&gitURL;/davfs2.plg">
   <!ENTITY pluginDIR "/boot/config/plugins/&name;">
   <!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
@@ -22,8 +22,8 @@
 <PLUGIN  name="&name;" author="&author;" version="&version;" icon="&icon;" pluginURL="&pluginURL;" min="6.11" support="https://github.com/greycubesgav/unraid-templates" >
 
 <CHANGES>
-###v1.0
-- Initial release based on davfs v1.6.1
+###2023.07.15
+- Initial release based on davfs2 v1.6.1
 </CHANGES>
 
 <!-- pre install - remove old package files -->
@@ -35,13 +35,13 @@ rm -f $(ls &pluginDIR;/*.txz 2>/dev/null|grep -v '&src_pkg;' -v '&dep1_pkg;' -v 
 </FILE>
 
 <!-- Install dep1 - libproxy -->
-<FILE Name="&pluginDIR;/&dep1_pkg;" Run="upgradepkg --install-new">
-  <URL>&gitURL;/packages/&dep1_pkg;</URL>
+<FILE Name="&pluginDIR;/&dep1_pkg;" Run="upgradepkg --install-new --reinstall">
+  <URL>&gitURL;packages/&dep1_pkg;</URL>
   <MD5>&dep1_md5;</MD5>
 </FILE>
 
 <!-- Install dep2 - neon -->
-<FILE Name="&pluginDIR;/&dep2_pkg;" Run="upgradepkg --install-new">
+<FILE Name="&pluginDIR;/&dep2_pkg;" Run="upgradepkg --install-new --reinstall">
   <URL>&gitURL;/packages/&dep2_pkg;</URL>
   <MD5>&dep2_md5;</MD5>
 </FILE>
@@ -49,13 +49,14 @@ rm -f $(ls &pluginDIR;/*.txz 2>/dev/null|grep -v '&src_pkg;' -v '&dep1_pkg;' -v 
 <!-- Setup davfs2 user/group -->
 <FILE Run="/bin/bash">
 <INLINE>
+echo "Adding davfs2 group...."
 groupadd -g 230 davfs2
 useradd -u 230 -d /var/cache/davfs2 -g davfs2 -s /bin/false davfs2
 </INLINE>
 </FILE>
 
 <!-- Install src - davfs2 -->
-<FILE Name="&pluginDIR;/&src_pkg;" Run="upgradepkg --install-new">
+<FILE Name="&pluginDIR;/&src_pkg;" Run="upgradepkg --install-new --reinstall">
 <URL>&gitURL;/packages/&src_pkg;</URL>
 <MD5>&src_md5;</MD5>
 </FILE>
@@ -64,17 +65,7 @@ useradd -u 230 -d /var/cache/davfs2 -g davfs2 -s /bin/false davfs2
 <INLINE>
 **davfs2**
 
-davfs2 allows for the local mounting of WebDAV sites under Unraid.
-
-Web Distributed Authoring and Versioning (WebDAV), an extension to the HTTP-protocol, allows authoring of resources on a remote web server. davfs2 provides the ability to access such resources like a typical filesystem, allowing for use by standard applications with no built-in support for WebDAV.
-
-davfs2 is designed to fully integrate into the filesystem semantics of Unix-like systems (mount, umount, etc.). davfs2 makes mounting by unprivileged users as easy and secure as possible.
-
-davfs2 does extensive caching to make the file system responsive, to avoid unnecessary network traffic and to prevent data loss, and to cope for slow or unreliable connections.
-
-davfs2 will work with most WebDAV servers needing little or no configuration.
-
-davfs2 is developed and tested on GNU/Linux but porting to other free operating systems should not be too cumbersome.
+davfs2 allows for the local mounting of WebDAV sites under Unraid using the Terminal
 </INLINE>
 </FILE>
 
@@ -94,6 +85,8 @@ echo "Removing libproxy package...."
 removepkg &pluginDIR;/&dep2_pkg;
 echo "Removing libproxy package...."
 removepkg &pluginDIR;/&dep1_pkg;
+echo "Removing web readme....."
+rm -rf &emhttp;
 echo "Removing plugin directory...."
 rm -rf &pluginDIR;
 echo
