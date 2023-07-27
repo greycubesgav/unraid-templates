@@ -61,10 +61,9 @@ More details about Cryptomator can be found at https://cryptomator.org</Overview
   <DonateLink/>
   <Requires>This application has no ability to create new Cryptomator vaults or change the password of a vault.
 
-    The native Cryptomator application (https://cryptomator.org/downloads/) should be used to create a new vault.
-
-    Then copy the entire vault directory and all sub-directories and files over to Unraid.
-    The decrypted vault files can then be edited through greycubesgav/cryptomator-webdav.</Requires>
+The native Cryptomator application (https://cryptomator.org/downloads/) should be used to create a new vault.
+Then copy the entire vault directory and all sub-directories and files over to Unraid.
+The decrypted vault files can then be edited through greycubesgav/cryptomator-webdav.</Requires>
   <Config Name="Cryptomator webDAV Port" Target="8443" Default="18081" Mode="tcp" Description="Port the Cryptomator WebDAV share will be available at." Type="Port" Display="always" Required="true" Mask="false"></Config>
   <Config Name="Cryptomator Vault Directory" Target="/vault" Default="/mnt/cryptomator_vault" Mode="rw" Description="The location of the local Cryptomator vault files." Type="Path" Display="always" Required="true" Mask="false"></Config>
   <Config Name="Cryptomator Vault Password" Target="CRYPTOMATOR_VAULT_PASS" Default="strongpass" Mode="" Description="The Cryptomator password for the vault. Note: is visible in docker env. Use password file for more secure option." Type="Variable" Display="always" Required="false" Mask="true"></Config>
