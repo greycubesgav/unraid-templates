@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Containers>
 <Plugin>True</Plugin>
-<PluginURL>https://github.com/greycubesgav/unraid-templates/raw/master/davfs2/davfs2.plg</PluginURL>
+<PluginURL>https://github.com/greycubesgav/unraid-templates/raw/main/davfs2/davfs2.plg</PluginURL>
 <PluginAuthor>Gavin Brown</PluginAuthor>
 <Beta>True</Beta>
 <Category>Tools:System</Category>
