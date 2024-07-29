@@ -2,110 +2,112 @@
 <!DOCTYPE PLUGIN [
   <!ENTITY name      "davfs2">
   <!ENTITY author    "greycubesgav">
-  <!ENTITY version   "2023.07.15">
+  <!ENTITY version   "2024.07.29">
   <!ENTITY icon      "hdd-o">
   <!ENTITY gitURL    "https://github.com/&author;/unraid-templates/raw/main/&name;/">
   <!ENTITY pluginURL "&gitURL;/davfs2.plg">
   <!ENTITY pluginDIR "/boot/config/plugins/&name;">
   <!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
-  <!ENTITY src_name  "davfs2">
-  <!ENTITY src_pkg   "davfs2-1.6.1-x86_64-1-GG.txz">
-  <!ENTITY src_md5   "312ac7f6d41617ccb7f06e051e4d5438">
-  <!ENTITY dep1_name "libproxy">
-  <!ENTITY dep1_pkg  "libproxy-0.4.17-x86_64-5.txz">
-  <!ENTITY dep1_md5  "66c8bcdb754205be0d5a481155c05726">
-  <!ENTITY dep2_name "neon">
-  <!ENTITY dep2_pkg  "neon-0.32.2-x86_64-1.txz">
-  <!ENTITY dep2_md5  "6541c1a5167e032ee56bc1053f7c879b">
+  <!ENTITY scpt_name "install_pkgs.sh">
+  <!ENTITY scpt_md5  "bfa3dc3dbebfc1f2b389954ccd229d6d">
 ]>
 
-<PLUGIN  name="&name;" author="&author;" version="&version;" icon="&icon;" pluginURL="&pluginURL;" min="6.11" support="https://github.com/greycubesgav/unraid-templates" >
+<PLUGIN name="&name;" author="&author;" version="&version;" icon="&icon;" pluginURL="&pluginURL;" min="6.11" support="https://github.com/greycubesgav/unraid-templates" >
 
-<CHANGES>
+  <CHANGES>
+ ###2024.07.29
+  - Update base packages for Unraid 7 libssl version (still davfs2 v1.6.1 underneath)
+  - Added check to only create user/group if they don't already exist
+  - Migrate to install script to deal with different versions of libssl
+
 ###2023.07.15
-- Initial release based on davfs2 v1.6.1
-</CHANGES>
+  - Initial release based on davfs2 v1.6.1
+  </CHANGES>
 
-<!-- pre install - remove old package files -->
-<FILE Run="/bin/bash">
-<INLINE>
-echo "Removing old packages..."
-rm -f $(ls &pluginDIR;/*.txz 2>/dev/null|grep -v '&src_pkg;' -v '&dep1_pkg;' -v '&dep2_pkg;')
-</INLINE>
-</FILE>
+  <!-- pre install - remove old package files -->
+  <FILE Run="/bin/bash">
+  <INLINE>
+  echo "Removing all old packages and scripts..."
+  rm -f $(ls &pluginDIR;/*.* 2>/dev/null)
+  </INLINE>
+  </FILE>
 
-<!-- Install dep1 - libproxy -->
-<FILE Name="&pluginDIR;/&dep1_pkg;" Run="upgradepkg --install-new --reinstall">
-  <URL>&gitURL;packages/&dep1_pkg;</URL>
-  <MD5>&dep1_md5;</MD5>
-</FILE>
+  <!-- Setup davfs2 user/group -->
+  <FILE Run="/bin/bash">
+  <INLINE>
+  echo "Adding davfs2 user and group 230:230 ...."
+  if ! getent group davfs2; then
+    groupadd -g 230 davfs2
+  fi
+  if ! getent passwd davfs2; then
+    useradd -u 230 -d /var/cache/davfs2 -g davfs2 -s /bin/false davfs2
+  fi
+  </INLINE>
+  </FILE>
 
-<!-- Install dep2 - neon -->
-<FILE Name="&pluginDIR;/&dep2_pkg;" Run="upgradepkg --install-new --reinstall">
-  <URL>&gitURL;/packages/&dep2_pkg;</URL>
-  <MD5>&dep2_md5;</MD5>
-</FILE>
+  <!-- Download Install Script -->
+  <FILE Name="&pluginDIR;/&scpt_name;" Run="/usr/bin/env bash" Method="install">
+    <URL>&gitURL;&scpt_name;</URL>
+    <MD5>&scpt_md5;</MD5>
+  </FILE>
 
-<!-- Setup davfs2 user/group -->
-<FILE Run="/bin/bash">
-<INLINE>
-echo "Adding davfs2 group...."
-groupadd -g 230 davfs2
-useradd -u 230 -d /var/cache/davfs2 -g davfs2 -s /bin/false davfs2
-</INLINE>
-</FILE>
+  <FILE Name="&emhttp;/README.md">
+  <INLINE>
+  **davfs2**
 
-<!-- Install src - davfs2 -->
-<FILE Name="&pluginDIR;/&src_pkg;" Run="upgradepkg --install-new --reinstall">
-<URL>&gitURL;/packages/&src_pkg;</URL>
-<MD5>&src_md5;</MD5>
-</FILE>
+  davfs2 allows for the local mounting of WebDAV sites under Unraid using the Terminal
+  </INLINE>
+  </FILE>
 
-<FILE Name="&emhttp;/README.md">
-<INLINE>
-**davfs2**
+  <!-- POST-INSTALL SCRIPT -->
+  <FILE Run="/bin/bash">
+  <INLINE>
+  echo ""
+  echo "-----------------------------------------------------------"
+  echo " Plugin &name; is installed."
+  echo " Version: &version;"
+  echo "-----------------------------------------------------------"
+  echo ""
+  </INLINE>
+  </FILE>
 
-davfs2 allows for the local mounting of WebDAV sites under Unraid using the Terminal
-</INLINE>
-</FILE>
+  <FILE Run="/bin/bash" Method="remove">
+  <INLINE>
+  echo "----------------------------------------------------"
+  echo "------- Uninstalling davfs2 and dependancies -------"
+  echo "----------------------------------------------------"
 
-<!-- POST-INSTALL SCRIPT -->
-<FILE Run="/bin/bash">
-<INLINE>
-echo ""
-echo "-----------------------------------------------------------"
-echo " Plugin &name; is installed."
-echo " Version: &version;"
-echo "-----------------------------------------------------------"
-echo ""
-</INLINE>
-</FILE>
+  echo "Removing package davfs2...."
+  removepkg davfs2
 
-<FILE Run="/bin/bash" Method="remove">
-<INLINE>
-echo "----------------------------------------------------"
-echo "------- Uninstalling davfs2 and dependancies -------"
-echo "----------------------------------------------------"
-echo "Removing davfs2 user...."
-userdel -r davfs2
-echo "Removing davfs2 group...."
-groupdel davfs2
-# Remove plugin related files
-echo "Removing davfs2 package...."
-removepkg &pluginDIR;/&src_pkg;
-echo "Removing libproxy package...."
-removepkg &pluginDIR;/&dep2_pkg;
-echo "Removing libproxy package...."
-removepkg &pluginDIR;/&dep1_pkg;
-echo "Removing web readme....."
-rm -rf &emhttp;
-echo "Removing plugin directory...."
-rm -rf &pluginDIR;
-echo
-echo "--------------------------------------------------------------------------------"
-echo "-------------------- davfs2 and dependancies uninstalled! ----------------------"
-echo "--------------------------------------------------------------------------------"
-echo
-</INLINE>
-</FILE>
-</PLUGIN>
+  echo "Removing package libproxy...."
+  removepkg libproxy
+
+  echo "Removing package neon...."
+  removepkg neon
+
+  if removepkg --dry-run ducktape &gt; /dev/null ; then
+    echo "Removing package duktape...."
+    removepkg duktape
+  fi
+
+  echo "Removing davfs2 user...."
+  userdel -r davfs2
+
+  echo "Removing davfs2 group...."
+  groupdel davfs2
+
+  echo "Removing web readme....."
+  rm -rf &emhttp;
+
+  echo "Removing plugin directory...."
+  rm -rf &pluginDIR;
+
+  echo
+  echo "--------------------------------------------------------------------------------"
+  echo "-------------------- davfs2 and dependancies uninstalled! ----------------------"
+  echo "--------------------------------------------------------------------------------"
+  echo
+  </INLINE>
+  </FILE>
+  </PLUGIN>

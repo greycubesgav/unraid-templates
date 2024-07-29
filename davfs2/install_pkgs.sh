@@ -19,8 +19,6 @@ download_md5() {
     return 1
   fi
 
-  #cp "/mnt/user/gav/Documents/Development/github/greycubesgav.unraid-templates/davfs2/packages/${pkg}" "${pkgDST}"
-
   # Download the MD5 checksum file
   if ! curl -L -s -f -o "${pkgDST}.md5" "${pkgURL}.md5" > /dev/null; then
     echo "Failed to download pkg MD5 to ${pkgDST}.md5 checksum file: ${pkgURL}.md5"
@@ -28,10 +26,7 @@ download_md5() {
     return 1
   fi
 
-  #cp "/mnt/user/gav/Documents/Development/github/greycubesgav.unraid-templates/davfs2/packages/${pkg}.md5" "${pkgDST}.md5"
-
   # Check the MD5 checksum
-  echo "${pluginDIR} : md5sum -c '${pkgDST}.md5'"
   if ! cd "${pluginDIR}" && md5sum -c "${pkg}.md5" > /dev/null; then
     echo "MD5 checksum failed for file: ${pkgDST}"
     rm -f "${pkgDST}" "${pkgDST}.md5"
