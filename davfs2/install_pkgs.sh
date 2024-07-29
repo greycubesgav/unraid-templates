@@ -73,9 +73,10 @@ if [ -f '/lib64/libssl.so.1.1' ]; then
   dep2_pkg="neon-0.32.2-x86_64-1.txz"
 elif [ -f '/lib64/libssl.so.3' ]; then
   # We assume we are running on Unraid 7.X
-  src_pkg="davfs2-1.6.1-x86_64-1_GG_UR7.tgz"
-  dep1_pkg="libproxy-0.5.8-x86_64-1.txz"
-  dep2_pkg="neon-0.33.0-x86_64-2.txz"
+  src_pkg='davfs2-1.6.1-x86_64-1_GG_UR7.tgz'
+  dep1_pkg='libproxy-0.5.8-x86_64-1.txz'
+  dep2_pkg='neon-0.33.0-x86_64-2.txz'
+  dep3_pkg='duktape-2.7.0-x86_64-1.txz'
 else
   echo "Failed to detect a known version of the openssl library" >&2
   echo "Local version appears to be : $(ls -l /lib64/libssl\.*)" >&2
@@ -86,6 +87,13 @@ if [ ! -d "${pluginDIR}" ]; then
   if ! mkdir -p "${pluginDIR}"; then
     echo "Failed to create plugin directory: ${pluginDIR}" >&2
     exit 2
+  fi
+fi
+
+if [ -n "${dep3_pkg}" ]; then
+  if ! dl_install "${dep3_pkg}"; then
+    echo "Issue with ${dep3_pkg} install exiting..." >&2
+    exit 10
   fi
 fi
 
